@@ -35,7 +35,7 @@ public class Cuidador {
 			t.start();
 		}
 
-		// Hilo para verificar si hay tamagotchis vivos
+		// Hilo para verificar si hay tamagotchis vivos,
 		// de no ser asi acaba el programa
 		new Thread(() -> {
 			while (true) {

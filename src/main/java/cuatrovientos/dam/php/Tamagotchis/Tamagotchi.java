@@ -82,7 +82,7 @@ public class Tamagotchi extends Thread {
 			while (true) {
 				try {
 					System.out.print("\n¿Cuál es el resultado de " + num1 + " + " + num2 + "? ");
-					String resultadoStr = sc.nextLine();
+					String resultadoStr = sc.nextLine().trim();
 					resultado = Integer.parseInt(resultadoStr);
 					break;
 				} catch (NumberFormatException e) {
@@ -135,10 +135,12 @@ public class Tamagotchi extends Thread {
 				Thread.sleep(5000);
 			} catch (InterruptedException ignored) {
 			}
-			suciedad = 0;
-			System.out.println("\nTamagotchi " + id + " sale limpio y feliz");
-			ocupado = false;
-			enBaño = false;
+			if (vivo) {
+				suciedad = 0;
+				System.out.println("\nTamagotchi " + id + " sale limpio y feliz");
+				ocupado = false;
+				enBaño = false;
+			}
 		}).start();
 	}
 
@@ -153,9 +155,11 @@ public class Tamagotchi extends Thread {
 				Thread.sleep(tiempoComer);
 			} catch (InterruptedException ignored) {
 			}
-			System.out.println("\nTamagotchi " + id + " ha terminado de comer.");
-			contadorComer++;
-			ocupado = false;
+			if (vivo) {
+				System.out.println("\nTamagotchi " + id + " ha terminado de comer.");
+				contadorComer++;
+				ocupado = false;
+			}
 		}).start();
 	}
 
