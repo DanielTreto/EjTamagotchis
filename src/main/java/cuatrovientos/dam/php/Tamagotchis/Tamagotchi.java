@@ -85,7 +85,7 @@ public class Tamagotchi extends Thread {
 					String resultadoStr = sc.nextLine();
 					resultado = Integer.parseInt(resultadoStr);
 					break;
-				}catch (NumberFormatException e) {
+				} catch (NumberFormatException e) {
 					System.out.println("Debes escribir un número entero válido.");
 				}
 			}

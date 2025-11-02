@@ -34,24 +34,27 @@ public class Cuidador {
 			tamagotchis.add(t);
 			t.start();
 		}
-		
-		//Hilo para verificar si hay tamagotchis vivos
-		//de no ser asi acaba el programa
+
+		// Hilo para verificar si hay tamagotchis vivos
+		// de no ser asi acaba el programa
 		new Thread(() -> {
-		    while (true) {
-		        boolean todosMuertos = true;
-		        for (Tamagotchi t : tamagotchis) {
-		            if (t.estaVivo()) {
-		                todosMuertos = false;
-		                break;
-		            }
-		        }
-		        if (todosMuertos) {
-		            System.out.println("\nTodos los Tamagotchis han muerto, que pena.");
-		            System.exit(0); // termina todo el programa
-		        }
-		        try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
-		    }
+			while (true) {
+				boolean todosMuertos = true;
+				for (Tamagotchi t : tamagotchis) {
+					if (t.estaVivo()) {
+						todosMuertos = false;
+						break;
+					}
+				}
+				if (todosMuertos) {
+					System.out.println("\nTodos los Tamagotchis han muerto, que pena.");
+					System.exit(0); // termina todo el programa
+				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException ignored) {
+				}
+			}
 		}).start();
 
 		// Bucle principal del cuidador
