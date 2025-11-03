@@ -9,6 +9,7 @@ public class Cuidador {
 		int numTamagotchis = 0;
 		int numT;
 		ArrayList<Tamagotchi> tamagotchis = new ArrayList<>();
+		final long SLEEP_HILO = 1_000; // 1 segundo
 
 		// Petición del número de Tamagotchis
 		while (true) {
@@ -51,7 +52,7 @@ public class Cuidador {
 					System.exit(0); // termina todo el programa
 				}
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(SLEEP_HILO);
 				} catch (InterruptedException ignored) {
 				}
 			}
@@ -59,7 +60,7 @@ public class Cuidador {
 
 		// Bucle principal del cuidador
 		while (true) {
-			Thread.sleep(1000);
+			Thread.sleep(SLEEP_HILO);
 
 			// Elegir Tamagotchi
 			while (true) {

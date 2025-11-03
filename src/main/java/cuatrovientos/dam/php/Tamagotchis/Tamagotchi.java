@@ -9,17 +9,26 @@ public class Tamagotchi extends Thread {
 	private boolean vivo = true;
 	private int suciedad = 0;
 	private final long tiempoNacimiento;
-	private final long tiempoVida = 300000; // 5 minutos
 	private final long tiempoComer; // tiempo variable para comer (ms)
 	private int contadorComer;
 	private int contadorJugar;
 	private boolean enBaño = false;
 	private boolean ocupado = false;
 
+	// Constantes
+	private static final long TIEMPO_VIDA = 300_000; // 5 minutos
+	private static final long TIEMPO_ENSUCIARSE = 20_000; // 20 segundos
+	private static final long TIEMPO_COMER_MIN = 3_000; // 3 segundos
+	private static final long TIEMPO_COMER_RANGO = 4_000; // +4 segundos
+	private static final long TIEMPO_BAÑO = 5_000; // 5 segundos
+	private static final long SLEEP_HILO = 1_000; // 1 segundo
+	private static final int SUCIEDAD_ADVERTENCIA = 5;
+	private static final int SUCIEDAD_MUERTE = 10;
+
 	public Tamagotchi(int id) {
 		Random rnd = new Random();
 		this.id = id;
-		this.tiempoComer = 3000 + rnd.nextInt(4000); // entre 3 y 7 segundos
+		this.tiempoComer = TIEMPO_COMER_MIN + rnd.nextInt((int) TIEMPO_COMER_RANGO); // entre 3 y 7 segundos
 		this.tiempoNacimiento = System.currentTimeMillis();
 	}
 
@@ -43,18 +52,18 @@ public class Tamagotchi extends Thread {
 				long edad = System.currentTimeMillis() - tiempoNacimiento;
 
 				// Morir de vejez a los 5 minutos
-				if (edad >= tiempoVida) {
+				if (edad >= TIEMPO_VIDA) {
 					morir();
 					break;
 				}
 
 				// Ensuciarse cada 20 segundos si no está en el baño
-				if (System.currentTimeMillis() - ultimoEnsuciamiento >= 20000 && !enBaño) {
+				if (System.currentTimeMillis() - ultimoEnsuciamiento >= TIEMPO_ENSUCIARSE && !enBaño) {
 					ensuciar();
 					ultimoEnsuciamiento = System.currentTimeMillis();
 				}
 
-				Thread.sleep(1000);
+				Thread.sleep(SLEEP_HILO);
 			}
 		} catch (InterruptedException e) {
 			// Hilo interrumpido al morir
@@ -115,9 +124,9 @@ public class Tamagotchi extends Thread {
 	// Aumentar suciedad
 	private void ensuciar() {
 		suciedad++;
-		if (suciedad == 5) {
+		if (suciedad == SUCIEDAD_ADVERTENCIA) {
 			System.out.println("\nTamagotchi " + id + " está empezando a estar muy sucio.");
-		} else if (suciedad >= 10) {
+		} else if (suciedad >= SUCIEDAD_MUERTE) {
 			System.out.println("\nTamagotchi " + id + " ha muerto de suciedad.");
 			vivo = false;
 		}
@@ -130,9 +139,9 @@ public class Tamagotchi extends Thread {
 		ocupado = true;
 		enBaño = true;
 		new Thread(() -> {
-			System.out.println("\nTamagotchi " + id + " entra al baño (5s)...");
+			System.out.println("\nTamagotchi " + id + " entra al baño (" + TIEMPO_BAÑO / 1000 + "s)...");
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(TIEMPO_BAÑO);
 			} catch (InterruptedException ignored) {
 			}
 			if (vivo) {
