@@ -20,6 +20,39 @@ Requisitos
 - Java JDK 11+ (o la versión indicada en `pom.xml`)
 - Maven 3.6+
 
+Cómo descargar / clonar el proyecto
+----------------------------------
+Puedes obtener el código de varias formas; elige la que prefieras.
+
+1) Clonar con Git (HTTPS)
+```bash
+git clone https://github.com/DanielTreto/EjTamagotchis.git
+cd EjTamagotchis
+```
+
+2) Clonar con Git (SSH, si tienes llave configurada)
+```bash
+git clone git@github.com:DanielTreto/EjTamagotchis.git
+cd EjTamagotchis
+```
+
+3) Usando GitHub CLI
+```bash
+gh repo clone DanielTreto/EjTamagotchis
+cd EjTamagotchis
+```
+
+4) Descargar ZIP desde la interfaz web
+- Ve a: https://github.com/DanielTreto/EjTamagotchis
+- Clic en "Code" → "Download ZIP", descomprime y entra en la carpeta.
+
+5) Clonar y cambiar a otra rama (ejemplo)
+```bash
+git clone https://github.com/DanielTreto/EjTamagotchis.git
+cd EjTamagotchis
+git checkout nombre-de-rama
+```
+
 Compilar y ejecutar
 -------------------
 1. Compilar y empaquetar:
